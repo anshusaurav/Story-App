@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Raleway:wght@500;600;700;800;900&display=swap');
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5rem;
+  -webkit-font-smoothing: antialiased;
+}
+.main-stop {
+  stop-color: red;
+}
+.alt-stop {
+  stop-color: green;
+}
+* {
+  box-sizing: border-box;
+}
+.stories-hero::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.stories-hero {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.icon-white > svg > polyline {
+  stroke: '#fff';
+}
