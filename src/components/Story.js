@@ -149,7 +149,7 @@ class Story extends React.Component {
     render() {
         return (
             <div className="w-full bg-gray-900 flex items-stretch flex-shrink-0 flex-col max-h-full">
-                <div class="header p-2 w-full flex items-center">
+                <div class="header p-2 w-full flex items-center justify-between">
                     <div class="left flex flex-row items-center">
                         <div class="user-img h-12 w-12 border rounded-full overflow-hidden mr-4 relative">
                             <img alt="..."
@@ -162,6 +162,12 @@ class Story extends React.Component {
                                 {stories[this.state.backgroundIndex].author.email}
                             </span>
                         </div>
+                    </div>
+                    <div class="right flex flex-row items-center justify-end">
+                        <button className="text-white focus:outline-none z-10 hover:text-gray-200">
+                            <GrClose
+                                className=" inline-block text-xl text-bold h-5 w-5
+                                        mr-1 cursor-pointer " /> </button>
                     </div>
                 </div>
 
