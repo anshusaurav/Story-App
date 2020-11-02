@@ -1,6 +1,8 @@
 import React from 'react'
-import { IconContext } from "react-icons";
 import { GrPrevious, GrNext, GrClose } from "react-icons/gr"
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import RadialSeparators from "./RadialSeparators";
+
 const stories = [
     {
         author: {
@@ -80,7 +82,59 @@ const stories = [
             profilePicture: "https://images.unsplash.com/photo-1603319688151-c647f5c5fbfb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
         }, imageUrl: "https://images.unsplash.com/photo-1604191598563-6c866a23f361?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
         videoUrl: "", index: 2
-    }
+    },
+    {
+        author: {
+            email: "akshayp", numImages: 5,
+            profilePicture: "https://images.unsplash.com/photo-1459409342466-58a380fc8bd6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        }, imageUrl: "https://images.unsplash.com/photo-1604191598563-6c866a23f361?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+        videoUrl: "", index: 0
+    },
+    {
+        author: {
+            email: "akshayp", numImages: 5,
+            profilePicture: "https://images.unsplash.com/photo-1459409342466-58a380fc8bd6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        }, imageUrl: "https://images.unsplash.com/photo-1604191598563-6c866a23f361?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+        videoUrl: "", index: 1
+    },
+    {
+        author: {
+            email: "akshayp", numImages: 5,
+            profilePicture: "https://images.unsplash.com/photo-1459409342466-58a380fc8bd6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        }, imageUrl: "https://images.unsplash.com/photo-1604231120462-9d01c75a9d92?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+        videoUrl: "https://storage.googleapis.com/images-photoappbucket/dea6146c-2acb-401e-99b5-3939e8d5039c.mp4",
+        index: 2, category: "video"
+    },
+    {
+        author: {
+            email: "akshayp", numImages: 5,
+            profilePicture: "https://images.unsplash.com/photo-1459409342466-58a380fc8bd6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        }, imageUrl: "https://images.unsplash.com/photo-1604240663730-fb202bf06c45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+        videoUrl: "", index: 3
+    },
+    {
+        author: {
+            email: "akshayp", numImages: 5,
+            profilePicture: "https://images.unsplash.com/photo-1459409342466-58a380fc8bd6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        }, imageUrl: "https://images.unsplash.com/photo-1604178450035-38e6a54ffa0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+        videoUrl: "", index: 4
+    },
+    {
+        author: {
+            email: "shindebhau", numImages: 2,
+            profilePicture: "https://images.unsplash.com/photo-1542190891-2093d38760f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        }, imageUrl: "https://images.unsplash.com/photo-1604191598563-6c866a23f361?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+        videoUrl: "", index: 0
+    },
+    {
+        author: {
+            email: "shindebhau", numImages: 2,
+            profilePicture: "https://images.unsplash.com/photo-1542190891-2093d38760f2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
+        }, imageUrl: "https://images.unsplash.com/photo-1604240913665-54a742f3725c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+        videoUrl: "", index: 1
+    },
+
+
 ]
 
 class Story extends React.Component {
@@ -88,8 +142,8 @@ class Story extends React.Component {
     constructor(props) {
         super(props)
         // this.backgrounds = ["https://i.imgur.com/Y0iI6Mxb.jpg", "https://i.imgur.com/qWP4aRSb.jpg", "https://i.imgur.com/flTzFAib.jpg"]
-        this.state = { backgroundIndex: 0 }
-
+        this.state = { backgroundIndex: this.props.start ? stories.findIndex((story) => story.author.email === this.props.start) : 0 }
+        // console.log(this.state, this.props)
         // this.changeBackground = this.changeBackground.bind(this)
     }
 
@@ -107,7 +161,7 @@ class Story extends React.Component {
 
     changeBackground = () => {
         this.setState(({ backgroundIndex }) => {
-            const nextBackgroundIndex = ++backgroundIndex % stories.length
+            const nextBackgroundIndex = backgroundIndex === stories.length - 1 ? 0 : ++backgroundIndex;
 
             return { backgroundIndex: nextBackgroundIndex }
         }, () => {
@@ -146,15 +200,37 @@ class Story extends React.Component {
             )
         });
     }
+
     render() {
         return (
             <div className="w-full bg-gray-900 flex items-stretch flex-shrink-0 flex-col max-h-full">
-                <div class="header p-2 w-full flex items-center justify-between">
+                <div class="header p-2 pt-4 w-full flex items-center justify-between">
                     <div class="left flex flex-row items-center">
-                        <div class="user-img h-12 w-12 border rounded-full overflow-hidden mr-4 relative">
-                            <img alt="..."
-                                class="object-cover w-full h-full"
-                                src={stories[this.state.backgroundIndex].author.profilePicture} />
+                        <div class="user-img h-12 w-12 border rounded-full overflow-hidden mr-4 relative" style={{
+                            backgroundImage: `url(${stories[this.state.backgroundIndex].author.profilePicture})`,
+                            backgroundSize: "cover",
+                            backgroundRepeat: "no-repeat",
+                            backgroundPosition: "center"
+                        }}>
+
+                            <CircularProgressbarWithChildren
+                                value={Math.round(((stories[this.state.backgroundIndex].index) * 100) / stories[this.state.backgroundIndex].author.numImages)}
+                                strokeWidth={6}
+                                styles={buildStyles({
+                                    strokeLinecap: "butt",
+                                    background: "#ae28cf",
+                                })}
+
+                            >
+                                <RadialSeparators
+                                    count={stories[this.state.backgroundIndex].author.numImages}
+                                    style={{
+                                        background: "#fff",
+                                        width: "2px",
+                                        height: `1px`
+                                    }}
+                                />
+                            </CircularProgressbarWithChildren>
                         </div>
                         <div class="user-name-and-place flex flex-col">
                             <span
@@ -164,7 +240,8 @@ class Story extends React.Component {
                         </div>
                     </div>
                     <div class="right flex flex-row items-center justify-end">
-                        <button className="text-white focus:outline-none z-10 hover:text-gray-200">
+                        <button className="text-white focus:outline-none z-10 hover:text-gray-200"
+                            onClick={this.props.togglePopup}>
                             <GrClose
                                 className=" inline-block text-xl text-bold h-5 w-5
                                         mr-1 cursor-pointer " /> </button>
@@ -205,25 +282,5 @@ class Story extends React.Component {
 
 }
 
-/*
-<button className="text-white absolute top-1 right-1 focus:outline-none z-10 hover:text-gray-200">
-                    <GrClose
-                        className=" inline-block text-xl text-bold h-5 w-5
-                                        mr-1 cursor-pointer " /> </button>
-                <div class="bg-transparent p-4 rounded-lg flex justify-between items-center absolute top-1 left-1 right-1">
-
-                    <div class="header p-2 flex justify-between items-center">
-                        <div class="left flex flex-row items-center">
-                            <div class="user-img h-12 w-12 border rounded-full overflow-hidden mr-4">
-                                <img alt="..." class="_6q-tv w-full h-full object-cover" src="http://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg" />
-                            </div>
-                            <div class="user-name-and-place flex flex-col">
-                                <span class="text-sm font-bold text-gray-200">anshusaurav</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-*/
 
 export default Story;
