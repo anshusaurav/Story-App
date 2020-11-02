@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Raleway:wght@500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cousine:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -30,7 +30,7 @@ body {
   stroke: '#fff';
 }
 .close-btn {
-  font-family: 'Cousine', monospace;
+  font-family: 'Fredoka One', cursive;
   font-weight: 700;
   font-stretch: expanded;
   font-size: 20px;

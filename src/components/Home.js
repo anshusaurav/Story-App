@@ -4,15 +4,13 @@ import 'react-circular-progressbar/dist/styles.css';
 import RadialSeparators from "./RadialSeparators";
 import NewStory from "./NewStory"
 import { connect } from "react-redux";
-import { getUsers } from "./../store/action/";
+import { getStories, getUsers } from "./../store/action/";
 import { HeaderLoader, MainLoader } from "./Loaders"
-
-
-
 class Home extends React.Component {
     state = { isOpen: false, start: null };
     componentDidMount() {
         this.props.dispatch(getUsers());
+        this.props.dispatch(getStories());
     }
     togglePopup = (event) => {
         this.setState(({ isOpen }) => (
@@ -37,14 +35,20 @@ class Home extends React.Component {
                     <div className="container mx-auto flex h-full" style={{ maxWidth: 630 }}>
                         {
                             isOpen ? (
-                                <NewStory start={start} togglePopup={this.togglePopup} />
+                                <NewStory
+                                    start={start}
+                                    togglePopup={this.togglePopup}
+                                />
                             ) : (
                                     <div className="left w-full">
                                         <div className="stories bg-white p-5 rounded border border-gray-400 flex mb-6">
                                             <div className="grid gap-4 grid-flow-col  overflow-x-auto stories-hero">
                                                 {
-                                                    users.length !== 0 && users.map(user => (
-                                                        <div className="storie-item flex flex-col mr-6 items-center cursor-pointer" onClick={this.handleClick} data-user-id={user.email}>
+                                                    users.length !== 0 && users.map((user, index) => (
+                                                        <div className="storie-item flex flex-col mr-6 items-center cursor-pointer"
+                                                            onClick={this.handleClick}
+                                                            data-user-id={user.email}
+                                                            key={index}>
 
                                                             <div className="rounded-full">
                                                                 <div className="rounded-full bg-white wrapper overflow-hidden h-16 w-16"
@@ -90,18 +94,27 @@ class Home extends React.Component {
                                             </div>
                                         </div>
                                         <div className="feeds">
-                                            <div className="feed-wrapper mb-4">
+                                            <div className="feed-wrapper mb-4 bg-white">
                                                 <div className="feed-item border border-gray-400 rounded bg-white">
                                                     {
-                                                        users.length !== 0 && users.map(user => (
-                                                            <div className="header border-b p-4 flex justify-between items-center">
+                                                        users.length !== 0 && users.map((user, index) => (
+                                                            <div className="header border-b p-4 flex justify-between items-center"
+                                                                key={index}>
                                                                 <div className="left flex flex-row items-center">
                                                                     <div className="user-img h-12 w-12 border rounded-full overflow-hidden mr-4">
-                                                                        <img alt="..." className="_6q-tv w-full h-full object-cover" data-testid="user-avatar" draggable="false" src={user.profilePicture} />
+                                                                        <img alt="..."
+                                                                            className="_6q-tv w-full h-full object-cover"
+                                                                            data-testid="user-avatar"
+                                                                            draggable="false"
+                                                                            src={user.profilePicture} />
                                                                     </div>
                                                                     <div className="user-name-and-place flex flex-col">
-                                                                        <span className="text-sm font-bold">{user.email}</span>
-                                                                        <span className="text-xs font-light text-gray-900">Online</span>
+                                                                        <span className="text-sm font-bold">
+                                                                            {user.email}
+                                                                        </span>
+                                                                        <span className="text-xs font-light text-gray-900">
+                                                                            Online
+                                                                        </span>
                                                                     </div>
                                                                 </div>
 
@@ -115,18 +128,16 @@ class Home extends React.Component {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>)
+                                    </div>
+                                )
                         }
-
-
-
                     </div>
                 </div>
             </div>
         )
     }
 }
-function mapStateToProps({ users }) {
-    return { users };
+function mapStateToProps({ users, stories }) {
+    return { users, stories };
 }
 export default connect(mapStateToProps)(Home);

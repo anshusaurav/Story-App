@@ -13,15 +13,20 @@ import stories from "./Stories"
 class NewStory extends React.Component {
 
     state = {
-        idxStart: this.props.start ? stories.findIndex((story) => story.author.email === this.props.start) : 0,
-        idxCurrent: this.props.start ? stories.findIndex((story) => story.author.email === this.props.start) : 0,
+        idxStart: this.props.start ? stories.findIndex(
+            (story) => story.author.email === this.props.start) : 0,
+        idxCurrent: this.props.start ? stories.findIndex(
+            (story) => story.author.email === this.props.start) : 0,
         idxDiff: 3000
     }
 
     onSlideChange = (event) => this.setState(({ idxCurrent }) => {
         return { idxCurrent: event.slideIndex }
     }, () => {
-        this.setState({ idxDiff: stories[this.state.idxStart].category === "image" ? 3000 : stories[this.state.idxStart].duration * 1000 })
+        this.setState({
+            idxDiff: stories[this.state.idxCurrent].category === "image" ?
+                3000 : stories[this.state.idxCurrent].duration * 1000
+        })
     })
     componentDidMount() {
         this.props.dispatch(getStories());
@@ -30,9 +35,9 @@ class NewStory extends React.Component {
         const { idxStart, idxDiff, idxCurrent } = this.state;
         return (
             <div className="w-full bg-gray-900 flex items-stretch flex-shrink-0 flex-col max-h-full">
-                <div class="header p-2 pt-4 w-full flex items-center justify-between">
-                    <div class="left flex flex-row items-center">
-                        <div class="user-img h-12 w-12 border rounded-full overflow-hidden mr-4 relative" style={{
+                <div className="header p-2 pt-4 w-full flex items-center justify-between">
+                    <div className="left flex flex-row items-center">
+                        <div className="user-img h-12 w-12 border rounded-full overflow-hidden mr-4 relative" style={{
                             backgroundImage: `url(${stories[idxCurrent].author.profilePicture})`,
                             backgroundSize: "cover",
                             backgroundRepeat: "no-repeat",
@@ -58,14 +63,14 @@ class NewStory extends React.Component {
                                 />
                             </CircularProgressbarWithChildren>
                         </div>
-                        <div class="user-name-and-place flex flex-col">
+                        <div className="user-name-and-place flex flex-col">
                             <span
-                                class="text-sm font-bold text-gray-200">
+                                className="text-sm font-bold text-gray-200">
                                 {stories[idxCurrent].author.email}
                             </span>
                         </div>
                     </div>
-                    <div class="right flex flex-row items-center justify-end">
+                    <div className="right flex flex-row items-center justify-end">
                         <button className="close-btn text-white focus:outline-none z-10 hover:text-gray-200"
                             onClick={this.props.togglePopup}>
                             X </button>
@@ -90,19 +95,22 @@ class NewStory extends React.Component {
                                         backgroundRepeat: "no-repeat",
                                         backgroundSize: "cover"
                                     }}
-                                ></div>
-                            ) : (<div className="flex justify-center items-center">
-                                <div key={index} className="slider-content">
-                                    <ReactPlayer
-                                        playing={true}
-                                        loop={true}
-                                        muted={true}
-                                        stopOnUnmount={true}
-                                        height="100%"
-                                        url={story.videoUrl}
-                                    />
+                                >
                                 </div>
-                            </div>
+                            ) : (
+                                    <div className="flex justify-center items-center">
+                                        <div key={index} className="slider-content">
+                                            <ReactPlayer
+                                                playing={true}
+                                                loop={true}
+                                                muted={true}
+                                                stopOnUnmount={true}
+                                                width="100%"
+                                                height="100%"
+                                                url={story.videoUrl}
+                                            />
+                                        </div>
+                                    </div>
                                 )
                         )}
                     </Slider>
